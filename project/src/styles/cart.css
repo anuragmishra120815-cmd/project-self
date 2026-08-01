@@ -1,0 +1,156 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 15px;
+    border-bottom: 1px solid #666;
+}
+
+.cart-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.remove-btn {
+    background: crimson;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.remove-btn:hover {
+    background: red;
+}
+.cart-page {
+    min-height: 100vh;
+
+    background:
+      
+        url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR-3xEC3QMUB3VfgkzUQZKmGN4XuJzMu_-_uTjZcahC289ESSaU91YFpb-&s=10");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-top: 30px;
+}.cart-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.order-btn {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 14px 35px;
+    border-radius: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.order-btn:hover {
+    background: #1e7e34;
+    transform: translateY(-3px);
+}
+.cart-card {
+    width: 700px;
+    max-width: 90%;
+    padding: 35px;
+    border-radius: 20px;
+
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+}
+
+.cart-card h2 {
+    color: white;
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+.cart-info h3 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+.cart-info p {
+    color: #ffd700;
+    margin: 0;
+}
+
+.cart-card p {
+    color: #ddd;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+
+
+
+.shop-btn {
+
+    display: inline-block;
+
+    text-decoration: none;
+
+    background: #ffffff;
+
+    color: #111;
+
+    padding: 14px 35px;
+
+    border-radius: 40px;
+
+    font-weight: bold;
+
+    transition: .3s;
+}
+
+.shop-btn:hover {
+
+    background:rgb(116, 116, 255);
+
+    transform: translateY(-3px);
+}.cart-title {
+    width: 100%;
+    text-align: left;
+    padding: 20px 0;
+margin-bottom: 150px;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+font-weight: 700;
+    font-size: 42px;
+    color: rgb(0, 0, 0);
+
+    background: transparent;
+    text-shadow: none;
+    letter-spacing: 1px;
+}.heading {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.total {
+    color: gold;
+    margin-top: 20px;
+}

@@ -1,0 +1,143 @@
+.male-page {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+
+    background-image:
+        linear-gradient(rgba(0, 0, 0, .65), rgba(0, 0, 0, .65)),
+        url("https://w0.peakpx.com/wallpaper/413/185/HD-wallpaper-premium-vector-luxurious-modern-purple-background-with-shiny-gold-lines-and-blank-space-for-promotional-text.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
+    min-height: 100vh;
+
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        url("https://st3.depositphotos.com/1031174/19042/i/450/depositphotos_190429448-stock-photo-blurred-red-lines.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.title {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 50px;
+    letter-spacing: 4px;
+   
+    backdrop-filter: blur(5px);
+}
+
+.perfume-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 60px;
+}
+
+.card {
+            box-shadow: 0 0 12px rgba(255, 215, 0, .25);
+            border: 1px solid rgba(255, 215, 0, .3);
+       
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 254, 251, 0.999);
+    border-radius: 18px;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 20px rgb(255, 255, 255);
+    transition: all .35s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+box-shadow: 0 0 25px  blue;
+}
+
+.card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: .4s;
+    
+}
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+.card h2 {
+    margin: 20px 0 10px;
+}
+
+.price {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: gold;
+}
+
+.price span {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: #ccc;
+    margin-left: 10px;
+}
+button {
+    background: linear-gradient(#ffd700, #c89b00);
+    color: black;
+    border-radius: 30px;
+    padding: 12px 25px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+button:hover {
+    background: white;
+    transform: scale(1.05);
+}
+footer {
+    text-align: center;
+    padding: 25px;
+
+    margin-top: 40px;
+    line-height: 1.8;
+}
+
+@media screen and (max-width: 768px) {
+
+    .perfume-grid {
+        grid-template-columns: 1fr;
+        padding: 80px 60px;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    h1 {
+        color: white;
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+}
