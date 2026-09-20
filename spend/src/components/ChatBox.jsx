@@ -1,15 +1,29 @@
 import { useState } from "react";
 
-function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
+function ChatBox({
+  totalExpense,
+  remainingSavings,
+  transactionCount,
+  expenses = [],
+  monthlyBudget = 0,
+  monthlyExpense = 0,
+  savingGoal = 0,
+}) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
     {
       from: "bot",
-      text: "Hi! I'm your SpendAI assistant 🤖 Ask me about your spending or savings.",
+      text: "Hi! I'm your SpendAI assistant 🤖 Ask me about your expenses, budget or savings goal.",
     },
   ]);
+
+  const categoryTotals = expenses.reduce((totals, expense) => {
+    const category = expense.category || "Other";
+    totals[category] = (totals[category] || 0) + Number(expense.amount);
+    return totals;
+  }, {});
 
   const sendMessage = async () => {
     const text = input.trim();
@@ -20,15 +34,22 @@ function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
     setLoading(true);
 
     const financialContext = `
-Current financial information:
+You are SpendAI, a personal expense tracking assistant.
+
+Current user financial data:
 - Total expense: ₹${totalExpense}
 - Remaining savings: ₹${remainingSavings}
 - Total transactions: ${transactionCount}
+- Monthly expense: ₹${monthlyExpense}
+- Monthly budget: ₹${monthlyBudget || "Not set"}
+- Saving goal: ₹${savingGoal || "Not set"}
+- Spending by category: ${JSON.stringify(categoryTotals)}
+- Expense history: ${JSON.stringify(expenses)}
 
 User's question:
 ${text}
 
-Give a short, practical and easy-to-understand response based on the user's financial information. If the user asks for a tip, make it specific to these numbers.
+Give a short, practical and personalized response using the data above. Mention relevant numbers when useful. Do not invent transactions or financial data.
 `;
 
     try {
@@ -37,9 +58,7 @@ Give a short, practical and easy-to-understand response based on the user's fina
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          question: financialContext,
-        }),
+        body: JSON.stringify({ question: financialContext }),
       });
 
       const data = await response.json();
@@ -50,7 +69,10 @@ Give a short, practical and easy-to-understand response based on the user's fina
 
       setMessages((prev) => [
         ...prev,
-        { from: "bot", text: data.answer || "I couldn't generate a response." },
+        {
+          from: "bot",
+          text: data.answer || "I couldn't generate a response.",
+        },
       ]);
     } catch (error) {
       setMessages((prev) => [
