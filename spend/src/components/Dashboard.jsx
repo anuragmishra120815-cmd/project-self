@@ -3,6 +3,7 @@ import Sidebar from "./sidebar";
 import AddExpense from "./AddExpense";
 import ExpenseList from "./ExpenseList";
 import ChatBox from "./ChatBox";
+import SpendAI from "./SpendAI";
 
 function Dashboard() {
   const [page, setPage] = useState("dashboard");
@@ -385,6 +386,13 @@ function Dashboard() {
                 </div>
               </div>
             )}
+
+            <SpendAI
+              totalExpense={totalExpense}
+              remainingSavings={remainingSavings}
+              transactionCount={expenses.length}
+              expenses={expenses}
+            />
 
             <ChatBox
               totalExpense={totalExpense}
