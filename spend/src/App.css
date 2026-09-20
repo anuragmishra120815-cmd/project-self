@@ -573,3 +573,45 @@ ul li {
     align-items: flex-start;
   }
 }
+
+
+.spend-ai-card {
+  margin: 20px 0;
+}
+
+.spend-ai-card > p {
+  color: #4b5563;
+  margin-bottom: 14px;
+}
+
+.spend-ai-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.spend-ai-row input {
+  flex: 1;
+  width: auto;
+  margin: 0;
+}
+
+.spend-ai-answer {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  line-height: 1.5;
+  color: #374151;
+}
+
+@media (max-width: 600px) {
+  .spend-ai-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .spend-ai-row input {
+    width: 100%;
+  }
+}
