@@ -3,39 +3,66 @@ import { useState } from "react";
 function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi! Ask me about your spending." },
+    {
+      from: "bot",
+      text: "Hi! I'm your SpendAI assistant 🤖 Ask me about your spending or savings.",
+    },
   ]);
 
-  const reply = (text) => {
-    const q = text.toLowerCase();
-
-    if (q.includes("expense") || q.includes("spent")) {
-      return `Your total expense is ₹${totalExpense}.`;
-    }
-    if (q.includes("saving") || q.includes("remaining")) {
-      return `Your remaining savings are ₹${remainingSavings}.`;
-    }
-    if (q.includes("transaction")) {
-      return `You have ${transactionCount} transaction(s).`;
-    }
-    if (q.includes("hello") || q.includes("hi")) {
-      return "Hey! I can show your expenses, savings and transactions.";
-    }
-
-    return "Try asking: total expense, remaining savings, or transactions.";
-  };
-
-  const sendMessage = () => {
+  const sendMessage = async () => {
     const text = input.trim();
-    if (!text) return;
+    if (!text || loading) return;
 
-    setMessages((prev) => [
-      ...prev,
-      { from: "user", text },
-      { from: "bot", text: reply(text) },
-    ]);
+    setMessages((prev) => [...prev, { from: "user", text }]);
     setInput("");
+    setLoading(true);
+
+    const financialContext = `
+Current financial information:
+- Total expense: ₹${totalExpense}
+- Remaining savings: ₹${remainingSavings}
+- Total transactions: ${transactionCount}
+
+User's question:
+${text}
+
+Give a short, practical and easy-to-understand response based on the user's financial information. If the user asks for a tip, make it specific to these numbers.
+`;
+
+    try {
+      const response = await fetch("http://localhost:5000/api/ask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question: financialContext,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.answer || "Something went wrong");
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: data.answer || "I couldn't generate a response." },
+      ]);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          from: "bot",
+          text: "❌ Could not connect to SpendAI backend. Make sure the server is running on port 5000.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -43,7 +70,7 @@ function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
       {open && (
         <div className="chat-box">
           <div className="chat-header">
-            <span>💬 Spend Chat</span>
+            <span>🤖 SpendAI Chat</span>
             <button onClick={() => setOpen(false)}>×</button>
           </div>
 
@@ -53,6 +80,10 @@ function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
                 {message.text}
               </div>
             ))}
+
+            {loading && (
+              <div className="chat-message bot">Thinking... 🤔</div>
+            )}
           </div>
 
           <div className="chat-input">
@@ -60,16 +91,18 @@ function ChatBox({ totalExpense, remainingSavings, transactionCount }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              placeholder="Ask something..."
+              placeholder="Ask about your spending..."
             />
-            <button onClick={sendMessage}>➤</button>
+            <button onClick={sendMessage} disabled={loading}>
+              ➤
+            </button>
           </div>
         </div>
       )}
 
       {!open && (
         <button className="chat-toggle" onClick={() => setOpen(true)}>
-          💬
+          🤖
         </button>
       )}
     </div>
