@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Sidebar from "./sidebar";
 import AddExpense from "./AddExpense";
 import ExpenseList from "./ExpenseList";
+import ChatBox from "./ChatBox";
 
 function Dashboard() {
   const [page, setPage] = useState("dashboard");
